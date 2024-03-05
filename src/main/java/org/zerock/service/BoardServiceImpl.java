@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,6 @@ import lombok.extern.log4j.Log4j2;
 public class BoardServiceImpl implements BoardService{
 //인터페이스에 실제 코드가 작성괴는 구현체
 	
-	//@setter(onmethod_ = @autowired) 로 사용해도됨 대신 @AllArgsConstructor 는 단일 파라미터일 경우 자동 주입가능
 	private BoardMapper mapper ; //영속계층으로 데이터 처리(jdbc)
 	
 	@Override
@@ -52,17 +52,29 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.delete(bno)==1;
 	}
 
+	/*
+	 * @Override public List<BoardVO> getList() { // //게시물의 모든 리스트를 출력한다.
+	 * 
+	 * log.info("getList메서드 실행중 .......");
+	 * 
+	 * return mapper.getList(); //매퍼에 있는 getList메서드를 실행해서 결화를 리턴한다.
+	 * 
+	 * }
+	 */
+	
 	@Override
-	public List<BoardVO> getList() {
-		// 	//게시물의 모든 리스트를 출력한다.
+	public List<BoardVO> getList(Criteria cri) {
+		// 
 		
-		log.info("getList메서드 실행중 .......");
+		log.info("getList메서드 실행중 ....cri값은:" + cri); 
 		
-		return mapper.getList(); //매퍼에 있는 getList메서드를 실행해서 결화를 리턴한다.
-				
+		return mapper.getListWithPaging(cri);
+	}
+	@Override
+	public int getTotal(Criteria cri) {
+		// 총 게시물을 구함
+
+		return mapper.getTotalCount(cri);
 	}
 
-	
-	
-	
 }
