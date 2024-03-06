@@ -58,10 +58,33 @@
             <!-- /.row -->
         </div>
         
+        <script type="text/javascript" src="/resources/js/reply.js"></script>
+        
+        <script>
+        
+        	console.log("===============");
+        	console.log("JS Test");
+        	
+        	var bnoValue = '<c:out value="${board.bno}"/>';
+        
+        	//repltService 안에 add함수 실행 (즉시함수 ajax사용)
+        	replyService.add(
+        		{reply:"JS Test" , replyer:"tester", bno:bnoValue}
+        		,
+        		function(result){
+        			alert("RESULT :" + result);
+        		}
+        	
+        	); 
+        </script>
+        
+
         <script type="text/javascript">
         	
         	$(document).ready(function() {
 				
+        		/* console.log(replyService);  js 테스트용 */ 
+        		
         		var operForm = $("#operForm"); //id가 operForm인 요소를 가져옴
         		
         		$("button[data-oper='modify']").on("click" , function(e) {
